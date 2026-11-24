@@ -8,12 +8,21 @@ body {
 }
 button, input { font: inherit; color: inherit; }
 
-.page { height: 100dvh; display: flex; flex-direction: column; padding: 16px 12px 0; }
+.page { height: 100dvh; display: flex; flex-direction: column; align-items: center; padding: 16px 12px 0; }
+.page > .stage-wrap { width: 100%; }
+
+.groups { position: relative; display: grid; grid-template-columns: repeat(4, 1fr); background: #eceff5; border-radius: 999px; padding: 4px; margin-bottom: 6px; flex: none; }
+.groups-thumb { position: absolute; top: 4px; bottom: 4px; left: 4px; width: calc((100% - 8px) / 4); background: #fff; border-radius: 999px;
+  box-shadow: 0 1px 3px rgba(17, 24, 39, 0.14); transition: transform 380ms cubic-bezier(0.22, 1, 0.36, 1); }
+.groups button { position: relative; z-index: 1; border: 0; background: transparent; padding: 7px 16px; border-radius: 999px; font-size: 13px; font-weight: 600; color: #6b7280; cursor: pointer; white-space: nowrap; transition: color 300ms; }
+.groups button.on { color: #111827; }
 .stage-wrap { flex: 1; min-height: 0; display: flex; justify-content: center; padding-bottom: 128px; }
 .stage { width: 100%; height: 100%; max-width: 1100px; display: block; }
 .stage .letter { fill: #fff; font-weight: 800; font-size: 17px; pointer-events: none; }
 .stage .name { fill: #9aa3b5; font-size: 13px; font-weight: 600; }
 .stage .audience { fill: #9aa3b5; font-size: 13px; font-weight: 700; letter-spacing: 6px; }
+.stage .audience.small { font-size: 10px; letter-spacing: 4px; }
+.stage .on-crowd { paint-order: stroke; stroke: #f6f7fb; stroke-width: 6px; fill: #6b7280; }
 .stage .cue-label { fill: #e85d9c; font-size: 34px; font-weight: 800; letter-spacing: -0.5px; }
 
 .player {
@@ -49,16 +58,17 @@ button, input { font: inherit; color: inherit; }
 .icon.on { color: #2f6fe4; border-color: #cddcfb; background: #eaf1ff; }
 
 .settings { position: absolute; right: 12px; bottom: calc(100% + 10px); background: #fff; border: 1px solid #e6e9f2; border-radius: 16px;
-  box-shadow: 0 10px 30px rgba(17, 24, 39, 0.1); padding: 12px; display: flex; flex-direction: column; gap: 8px; min-width: 260px; }
+  box-shadow: 0 10px 30px rgba(17, 24, 39, 0.1); padding: 12px; display: flex; flex-direction: column; gap: 8px; min-width: 300px; }
 .settings-title { font-size: 12px; font-weight: 700; color: #6b7280; text-transform: uppercase; letter-spacing: 1px; }
 .cue-row { display: flex; align-items: center; gap: 8px; font-size: 14px; }
-.cue-row > span:first-child { width: 14px; font-weight: 700; color: #e85d9c; }
+.cue-row > span:first-child { width: 112px; font-weight: 600; color: #374151; font-size: 13px; }
 .cue-row input { width: 84px; border: 1px solid #e6e9f2; border-radius: 8px; padding: 5px 7px; }
 .muted { color: #9aa3b5; font-size: 12px; min-width: 44px; }
 .ghost { border: 1px solid #e6e9f2; background: #fff; border-radius: 999px; padding: 4px 10px; font-size: 12px; font-weight: 600; color: #374151; cursor: pointer; align-self: flex-start; }
 
 @media (max-width: 640px) {
-  .page { padding: 8px 4px 0; }
+  .page { padding: calc(14px + env(safe-area-inset-top)) 4px 0; }
+  .groups button { padding: 7px 12px; }
   .stage-wrap { padding-bottom: 150px; }
   .pills { width: 100%; justify-content: space-between; }
   .tl { min-width: 0; }

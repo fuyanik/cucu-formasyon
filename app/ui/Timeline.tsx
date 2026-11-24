@@ -5,7 +5,7 @@ import { segments, VIEW_END, VIEW_START, type Cues } from "@/lib/choreo";
 
 const W = 1000;
 const X = (t: number) => ((t - VIEW_START) / (VIEW_END - VIEW_START)) * W;
-const COLORS = { bekle: "#eef1f7", cucu: "#f7b8d3", yuru: "#cddcfb", son: "#fbe2b8" } as const;
+const COLORS = { bekle: "#eef1f7", cucu: "#f7b8d3", yuru: "#cddcfb", son: "#fbe2b8", cucucu: "#f48fbd", don: "#d9ccfb", gecis: "#c9d3fb", cember: "#b9cffa", indir: "#fbe2b8" } as const;
 
 export default function Timeline({ t, cues, onSeek }: { t: number; cues: Cues; onSeek: (t: number) => void }) {
   const ref = useRef<SVGSVGElement>(null);

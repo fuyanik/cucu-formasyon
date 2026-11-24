@@ -1,13 +1,14 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import { DEFAULT_CUES, fmt, frameAt, LOOP_END, LOOP_START, VIEW_END, VIEW_START, type Cues } from "@/lib/choreo";
+import { CUE_LABELS, DEFAULT_CUES, fmt, frameAt, LOOP_END, LOOP_START, marks, VIEW_END, VIEW_START, type Cues } from "@/lib/choreo";
 import StageTop from "./StageTop";
 import Timeline from "./Timeline";
 
-const STORAGE_KEY = "cucu-formasyon-cues";
+const STORAGE_KEY = "cucu-formasyon-cues-v2";
 const RATES = [0.5, 0.75, 1];
-const CUE_KEYS: (keyof Cues)[] = ["c1", "c2", "c3"];
+const GROUPS = ["1.Grup", "2.Grup", "3.Grup", "4.Grup"];
+const CUE_KEYS = Object.keys(DEFAULT_CUES) as (keyof Cues)[];
 
 export default function Choreo() {
   const audioRef = useRef<HTMLAudioElement>(null);
@@ -19,6 +20,7 @@ export default function Choreo() {
   const [cues, setCues] = useState<Cues>(DEFAULT_CUES);
   const [loaded, setLoaded] = useState(false);
   const [settings, setSettings] = useState(false);
+  const [group, setGroup] = useState(0);
   const wrapRef = useRef<HTMLDivElement>(null);
   const [compact, setCompact] = useState(false);
 
@@ -99,6 +101,15 @@ export default function Choreo() {
 
   return (
     <main className="page">
+      <div className="groups" role="tablist" aria-label="Grup seçimi">
+        <span className="groups-thumb" style={{ transform: `translateX(${group * 100}%)` }} />
+        {GROUPS.map((g, i) => (
+          <button key={g} role="tab" aria-selected={group === i} className={group === i ? "on" : ""} onClick={() => setGroup(i)}>
+            {g}
+          </button>
+        ))}
+      </div>
+
       <div className="stage-wrap" ref={wrapRef}>
         <StageTop frame={frame} compact={compact} />
       </div>
@@ -117,10 +128,10 @@ export default function Choreo() {
 
         {settings && (
           <div className="settings">
-            <div className="settings-title">Cucu zamanları</div>
-            {CUE_KEYS.map((k, i) => (
+            <div className="settings-title">Zamanlar</div>
+            {CUE_KEYS.map((k) => (
               <div key={k} className="cue-row">
-                <span>{i + 1}</span>
+                <span>{CUE_LABELS[k]}</span>
                 <input
                   type="number"
                   step={0.01}
@@ -165,9 +176,16 @@ export default function Choreo() {
 
           <div className="tl">
             <div className="tl-marks">
-              {[cues.c1, cues.c2, cues.c3].map((c, i) => (
-                <span key={i} style={{ left: pct(c) }}>
-                  {i + 1}
+              {[
+                { at: cues.c1, s: "1" },
+                { at: cues.c2, s: "2" },
+                { at: cues.c3, s: "3" },
+                { at: cues.k1, s: "4" },
+                { at: cues.turn, s: "5" },
+                { at: marks(cues).circle, s: "6" },
+              ].map(({ at, s }) => (
+                <span key={s} style={{ left: pct(at) }}>
+                  {s}
                 </span>
               ))}
             </div>
@@ -182,7 +200,7 @@ export default function Choreo() {
                 </button>
               ))}
             </div>
-            <button className={`pill ${loop ? "on" : ""}`} onClick={() => setLoop((l) => !l)} title="1:00–1:15 arası döngü">
+            <button className={`pill ${loop ? "on" : ""}`} onClick={() => setLoop((l) => !l)} title="1:00–1:30 arası döngü">
               Döngü
             </button>
             <button className={`icon ${settings ? "on" : ""}`} onClick={() => setSettings((s) => !s)} aria-label="Ayarlar" title="Cucu zamanlarını ayarla">
