@@ -6,7 +6,7 @@ import StageTop from "./StageTop";
 import Timeline from "./Timeline";
 
 const STORAGE_KEY = "cucu-formasyon-cues-v2";
-const RATES = [0.5, 0.75, 1];
+const RATES = [0.93, 0.96, 1];
 const GROUPS = ["1.Grup", "2.Grup", "3.Grup", "4.Grup"];
 const CUE_KEYS = Object.keys(DEFAULT_CUES) as (keyof Cues)[];
 
