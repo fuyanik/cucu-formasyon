@@ -4,10 +4,10 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { CUE_LABELS, DEFAULT_CUES, fmt, frameAt, LOOP_END, LOOP_START, marks, VIEW_END, VIEW_START, type Cues } from "@/lib/choreo";
 import StageTop from "./StageTop";
 import Timeline from "./Timeline";
+import GroupTabs from "./GroupTabs";
 
 const STORAGE_KEY = "cucu-formasyon-cues-v2";
 const RATES = [0.93, 0.96, 1];
-const GROUPS = ["1.Grup", "2.Grup", "3.Grup", "4.Grup"];
 const CUE_KEYS = Object.keys(DEFAULT_CUES) as (keyof Cues)[];
 
 export default function Choreo() {
@@ -101,14 +101,7 @@ export default function Choreo() {
 
   return (
     <main className="page">
-      <div className="groups" role="tablist" aria-label="Grup seçimi">
-        <span className="groups-thumb" style={{ transform: `translateX(${group * 100}%)` }} />
-        {GROUPS.map((g, i) => (
-          <button key={g} role="tab" aria-selected={group === i} className={group === i ? "on" : ""} onClick={() => setGroup(i)}>
-            {g}
-          </button>
-        ))}
-      </div>
+      <GroupTabs value={group} onChange={setGroup} />
 
       <div className="stage-wrap" ref={wrapRef}>
         <StageTop frame={frame} compact={compact} />

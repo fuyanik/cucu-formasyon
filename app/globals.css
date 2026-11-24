@@ -7,14 +7,18 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 button, input { font: inherit; color: inherit; }
+/* Telefonda dokunuşta gri vurgu, odak çerçevesi ve çift dokunma yakınlaştırması olmasın. */
+button { -webkit-tap-highlight-color: transparent; touch-action: manipulation; user-select: none; -webkit-user-select: none; }
+button:focus { outline: none; }
+button:focus-visible { outline: 2px solid #2f6fe4; outline-offset: 2px; }
 
 .page { height: 100dvh; display: flex; flex-direction: column; align-items: center; padding: 16px 12px 0; }
 .page > .stage-wrap { width: 100%; }
 
 .groups { position: relative; display: grid; grid-template-columns: repeat(4, 1fr); background: #eceff5; border-radius: 999px; padding: 4px; margin-bottom: 6px; flex: none; }
 .groups-thumb { position: absolute; top: 4px; bottom: 4px; left: 4px; width: calc((100% - 8px) / 4); background: #fff; border-radius: 999px;
-  box-shadow: 0 1px 3px rgba(17, 24, 39, 0.14); transition: transform 380ms cubic-bezier(0.22, 1, 0.36, 1); }
-.groups button { position: relative; z-index: 1; border: 0; background: transparent; padding: 7px 16px; border-radius: 999px; font-size: 13px; font-weight: 600; color: #6b7280; cursor: pointer; white-space: nowrap; transition: color 300ms; }
+  box-shadow: 0 1px 3px rgba(17, 24, 39, 0.14); transition: transform 650ms cubic-bezier(0.65, 0, 0.35, 1); will-change: transform; }
+.groups button { position: relative; z-index: 1; border: 0; background: transparent; padding: 7px 16px; border-radius: 999px; font-size: 13px; font-weight: 600; color: #6b7280; cursor: pointer; white-space: nowrap; transition: color 500ms ease; }
 .groups button.on { color: #111827; }
 .stage-wrap { flex: 1; min-height: 0; display: flex; justify-content: center; padding-bottom: 128px; }
 .stage { width: 100%; height: 100%; max-width: 1100px; display: block; }
